@@ -27,6 +27,9 @@ Template.images.events({
     var image_id = this.id;
     console.log(image_id);
     Images.update({_id:image_id}, {$set: {rating:rating}});
+  },
+  'click .js-show-image-form': function(event) {
+    $("#image_add_form").modal('show');
   }
 });
 
@@ -41,6 +44,7 @@ Template.image_add_form.events({
       img_alt: img_alt,
       createdOn: new Date()
     });
+    $("#image_add_form").modal('show');
     return false;
   }
 });
