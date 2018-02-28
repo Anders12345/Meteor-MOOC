@@ -1,7 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
-
-const Images = new Mongo.Collection('images');
+import { Images } from '/lib/collections.js';
 
 Meteor.startup(() => {
   console.log(Images.find().count());

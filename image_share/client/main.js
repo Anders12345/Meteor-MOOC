@@ -1,8 +1,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import './main.html';
-
-const Images = new Mongo.Collection('images');
+import { Images } from '../lib/collections.js';
 
 Session.set("imageLimit", 8);
 
@@ -19,7 +18,6 @@ $(window).scroll(function(event){
     }
     lastScrollTop = scrollTop;
   }
-
 });
 
 Accounts.ui.config({
