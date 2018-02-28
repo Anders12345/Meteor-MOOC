@@ -7,7 +7,15 @@ const Images = new Mongo.Collection('images');
 //Template.images.helpers({images:img_data});
 Template.images.helpers({images:
   Images.find({},{sort:{createdOn: -1, rating:-1}})
+});
 
+Template.body.helpers({username:function() {
+  if(Meteor.user()){
+    return Meteor.user().emails[0].address;
+  } else {
+    return "anon"; 
+  }
+}
 });
 
 Template.images.events({
