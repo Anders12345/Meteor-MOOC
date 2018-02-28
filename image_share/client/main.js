@@ -4,17 +4,39 @@ import './main.html';
 import { Images } from '../lib/collections.js';
 
 // routing
-Router.route('/', function () {
-  this.render('navbar');
-  
+Router.configure({
+  layoutTemplate: 'ApplicationLayout'
 });
+
+Router.route('/', function () {
+  this.render('welcome', {
+    to:"main"
+  });
+});
+
 Router.route('/images', function () {
-  this.render('images');
+  this.render('navbar', {
+    to:"navbar"
+  });
+  this.render('images', {
+    to:"main"
+  });
+});
+
+Router.route('/image/:_id', function () {
+  this.render('navbar', {
+    to:"navbar"
+  });
+  this.render('image', {
+    to:"main",
+    data:function() {
+      return Images.findOne({_id:this.params._id});
+    }
+  });
 });
 
 //infinite scroll
 Session.set("imageLimit", 8);
-
 lastScrollTop = 0;
 $(window).scroll(function(event){
   //test if we are near the bottom of the window
@@ -44,14 +66,15 @@ Template.images.helpers({
   },
   filtering_images:function() {
     if(Session.get("userFilter")){
-      var user = Meteor.users.findOne({_id:Session.get("userFilter")});
-      return user.username;
+      return true;
     } else {
       return false;
     }
   },
   getFilterUser:function(){
     if(Session.get("userFilter")){
+      var user = Meteor.users.findOne({_id:Session.get("userFilter")});
+      return user.username;
       return true;
     } else {
       return false;
@@ -70,7 +93,6 @@ Template.images.helpers({
 Template.body.helpers({username:function() {
   if(Meteor.user()){
     return Meteor.user().username;
-    //return Meteor.user().emails[0].address;
   } else {
     return "anon";
   }
@@ -78,9 +100,9 @@ Template.body.helpers({username:function() {
 });
 
 Template.images.events({
-  'click .js-image': function(event) {
+/*  'click .js-image': function(event) {
     $(event.target).css("width", "50px");
-  },
+  },*/
   'click .js-del-image': function(event) {
     var image_id = this._id;
     console.log(image_id);

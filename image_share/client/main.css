@@ -13,3 +13,7 @@ body {
 .caption {
   word-wrap: break-word;
 }
+
+.single-img {
+  max-width: 100%;
+}
