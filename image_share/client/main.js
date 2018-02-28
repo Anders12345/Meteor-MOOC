@@ -3,6 +3,16 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import './main.html';
 import { Images } from '../lib/collections.js';
 
+// routing
+Router.route('/', function () {
+  this.render('navbar');
+  
+});
+Router.route('/images', function () {
+  this.render('images');
+});
+
+//infinite scroll
 Session.set("imageLimit", 8);
 
 lastScrollTop = 0;
