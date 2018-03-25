@@ -1,2 +1,2 @@
 "# Meteor-MOOC" 
-Making a image sharing site in Meteor
+Making an image sharing site in Meteor
